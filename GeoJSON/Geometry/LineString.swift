@@ -23,6 +23,7 @@
 // SOFTWARE.
 
 import Foundation
+import SwiftyJSON
 
 public final class LineString : GeoJSONEncodable {
 	
@@ -33,7 +34,7 @@ public final class LineString : GeoJSONEncodable {
 	public var prefix: String { return "coordinates" }
 	
 	/// Private points
-	private var _points: [Point] = []
+	fileprivate var _points: [Point] = []
 	
 	/**
 	Designated initializer for creating a LineString from a SwiftyJSON object
@@ -81,7 +82,7 @@ public final class LineString : GeoJSONEncodable {
 	
 	:returns: Representation of the LineString Object
 	*/
-	public func json() -> AnyObject {
+	public func json() -> Any {
 		return points.map { $0.json() }
 	}
 }

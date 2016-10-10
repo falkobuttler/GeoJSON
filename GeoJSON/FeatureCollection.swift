@@ -23,21 +23,21 @@
 // SOFTWARE.
 
 import Foundation
+import SwiftyJSON
 
 public final class FeatureCollection : GeoJSONEncodable {
     
     /// Private var to store features
-    private var _features: [GeoJSON] = []
+    fileprivate var _features: [GeoJSON] = []
     
     /// Public features
     public var features: [GeoJSON] { return _features }
-    
     
     public init?(json: JSON) {
         if let jsonFeatures =  json.array {
             _features = jsonFeatures.map { jsonObject in
                 return GeoJSON(json: jsonObject)
-                } ?? []
+            }
             
             let validFeatures = _features.filter { geoJSON in
                 return geoJSON.type == .Feature
@@ -46,12 +46,12 @@ public final class FeatureCollection : GeoJSONEncodable {
             if validFeatures.count != _features.count {
                 return nil
             }
-        } else {
-            return nil
         }
+        return nil
     }
+    
 	public var prefix: String { return "" }
-	public func json() -> AnyObject { return "" }
+	public func json() -> Any { return "" }
 }
 
 /// Array forwarding methods
@@ -81,4 +81,5 @@ public extension GeoJSON {
             _object = newValue ?? NSNull()
         }
     }
+    
 }

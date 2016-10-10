@@ -23,6 +23,7 @@
 // SOFTWARE.
 
 import Foundation
+import SwiftyJSON
 
 public final class MultiPoint : GeoJSONEncodable {
 	
@@ -33,7 +34,7 @@ public final class MultiPoint : GeoJSONEncodable {
 	public var prefix: String { return "coordinates" }
 	
 	/// Private points
-	private var _points: [Point] = []
+	fileprivate var _points: [Point] = []
 	
 	/**
 	Designated initializer for creating a MultiPoint from a SwiftyJSON object
@@ -72,7 +73,7 @@ public final class MultiPoint : GeoJSONEncodable {
 	
 	:returns: Representation of the MultiPoint Object
 	*/
-	public func json() -> AnyObject {
+	public func json() -> Any {
 		return points.map { $0.json() }
 	}
 }

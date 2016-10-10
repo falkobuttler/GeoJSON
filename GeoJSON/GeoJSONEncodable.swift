@@ -26,12 +26,12 @@ import Foundation
 
 public protocol GeoJSONEncodable {
 	var prefix: String { get }
-	func json() -> AnyObject
+	func json() -> Any
 }
 
 extension NSNull: GeoJSONEncodable {
 	public var prefix: String { return "" }
-	public func json() -> AnyObject {
+	public func json() -> Any {
 		return NSNull()
 	}
 }

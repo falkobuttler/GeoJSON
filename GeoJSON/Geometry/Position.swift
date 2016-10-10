@@ -23,6 +23,7 @@
 // SOFTWARE.
 
 import Foundation
+import SwiftyJSON
 
 public struct Position {
 	
@@ -65,7 +66,7 @@ public struct Position {
 }
 
 
-extension Position: ArrayLiteralConvertible {
+extension Position: ExpressibleByArrayLiteral {
 	public init(arrayLiteral elements: Double...) {
 		for element in elements {
 			coordinates.append(element)

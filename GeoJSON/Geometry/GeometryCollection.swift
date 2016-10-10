@@ -23,6 +23,7 @@
 // SOFTWARE.
 
 import Foundation
+import SwiftyJSON
 
 public final class GeometryCollection : GeoJSONEncodable {
     
@@ -33,7 +34,7 @@ public final class GeometryCollection : GeoJSONEncodable {
     public var prefix: String { return "geometries" }
     
     /// Private var to store geometries
-    private var _geometries: [GeoJSON] = []
+    fileprivate var _geometries: [GeoJSON] = []
     
     /**
     Designated initializer for creating a GeometryCollection from a SwiftyJSON object
@@ -45,7 +46,7 @@ public final class GeometryCollection : GeoJSONEncodable {
         if let jsonGeometries =  json.array {
             _geometries = jsonGeometries.map { jsonObject in
                 return GeoJSON(json: jsonObject)
-                } ?? []
+            }
             
             let validGeometries = _geometries.filter { geoJSON in
                 return geoJSON.type != .Unknown
@@ -54,9 +55,8 @@ public final class GeometryCollection : GeoJSONEncodable {
             if validGeometries.count != _geometries.count {
                 return nil
             }
-        } else {
-            return nil
         }
+        return nil
     }
     
     /**
@@ -74,7 +74,7 @@ public final class GeometryCollection : GeoJSONEncodable {
     
     :returns: Representation of the GeometryCollection Object
     */
-    public func json() -> AnyObject {
+    public func json() -> Any {
         return _geometries.map { $0.json() }
     }
 }

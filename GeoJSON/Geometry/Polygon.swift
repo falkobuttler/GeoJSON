@@ -23,6 +23,7 @@
 // SOFTWARE.
 
 import Foundation
+import SwiftyJSON
 
 public final class Polygon : GeoJSONEncodable {
 	
@@ -33,7 +34,7 @@ public final class Polygon : GeoJSONEncodable {
 	public var prefix: String { return "coordinates" }
 	
 	/// Private linearRings
-	private var _linearRings: [LineString] = []
+	fileprivate var _linearRings: [LineString] = []
 	
 	/**
 	Designated initializer for creating a Polygon from a SwiftyJSON object
@@ -74,7 +75,7 @@ public final class Polygon : GeoJSONEncodable {
 	
 	:returns: Representation of the Polygon Object
 	*/
-	public func json() -> AnyObject {
+	public func json() -> Any {
 		return _linearRings.map { $0.json() }
 	}
 }

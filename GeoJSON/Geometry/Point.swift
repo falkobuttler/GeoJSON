@@ -23,6 +23,7 @@
 // SOFTWARE.
 
 import Foundation
+import SwiftyJSON
 
 public final class Point : Equatable, GeoJSONEncodable {
 	
@@ -41,7 +42,7 @@ public final class Point : Equatable, GeoJSONEncodable {
 	public var prefix: String { return "coordinates" }
 	
 	/// Private var to store coordinates
-	private var _coordinates: [Double] = [0.0, 0.0]
+	fileprivate var _coordinates: [Double] = [0.0, 0.0]
 	
 	/**
 	Designated initializer for creating a Point from a SwiftyJSON object
@@ -78,8 +79,8 @@ public final class Point : Equatable, GeoJSONEncodable {
 	
 	:returns: Representation of the Point Object
 	*/
-	public func json() -> AnyObject {
-		return _coordinates as AnyObject
+	public func json() -> Any {
+		return _coordinates
 	}
 }
 

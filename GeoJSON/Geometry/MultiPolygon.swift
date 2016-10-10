@@ -23,6 +23,7 @@
 // SOFTWARE.
 
 import Foundation
+import SwiftyJSON
 
 public final class MultiPolygon : GeoJSONEncodable {
 	
@@ -33,7 +34,7 @@ public final class MultiPolygon : GeoJSONEncodable {
     public var prefix: String { return "coordinates" }
     
     /// Private polygons
-	private var _polygons: [Polygon] = []
+	fileprivate var _polygons: [Polygon] = []
 	
     /**
     Designated initializer for creating a MultiPolygon from a SwiftyJSON object
@@ -72,7 +73,7 @@ public final class MultiPolygon : GeoJSONEncodable {
     
     :returns: Representation of the MultiPolygon Object
     */
-	public func json() -> AnyObject {
+	public func json() -> Any {
         return _polygons.map { $0.json() }
     }
 }

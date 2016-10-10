@@ -23,6 +23,7 @@
 // SOFTWARE.
 
 import Foundation
+import SwiftyJSON
 
 public final class Feature : GeoJSONEncodable {
 	
@@ -39,10 +40,10 @@ public final class Feature : GeoJSONEncodable {
 	public var prefix: String { return "" }
 	
     /// Private geometry
-	private var _geometry: GeoJSON? = nil
+	fileprivate var _geometry: GeoJSON? = nil
 
     /// Private properties
-    private var _properties: JSON
+    fileprivate var _properties: JSON
 
 	/// Private identifier
 	public var _identifier: String?
@@ -85,7 +86,7 @@ public final class Feature : GeoJSONEncodable {
 			_properties = properties!
 			if properties!.error != nil { return nil }
 		} else {
-			_properties = JSON.nullJSON
+			_properties = JSON.null
 		}
 		
 		_geometry = geometry
@@ -100,9 +101,9 @@ public final class Feature : GeoJSONEncodable {
 	
 	:returns: Representation of the Feature Object
 	*/
-	public func json() -> AnyObject {
+	public func json() -> Any {
 	
-		var geometryJSON : AnyObject = self.geometry?.json() ?? NSNull()
+		let geometryJSON : Any = self.geometry?.json() ?? NSNull()
 		
 		var resultDict = [
 			"type" : "Feature",
@@ -110,7 +111,7 @@ public final class Feature : GeoJSONEncodable {
 			"geometry" : geometryJSON,
 		]
 		
-		if let id = _identifier {
+		if _identifier != nil {
 			resultDict["id"] = identifier
 		}
 		

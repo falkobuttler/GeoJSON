@@ -23,6 +23,7 @@
 // SOFTWARE.
 
 import Foundation
+import SwiftyJSON
 
 // MARK: - Error
 
@@ -63,23 +64,23 @@ public final class GeoJSON {
 		set {
 			_object = newValue
 			switch newValue {
-			case let point as Point:
+			case is Point:
 				_type = .Point
-			case let multiPoint as MultiPoint:
+			case is MultiPoint:
 				_type = .MultiPoint
-			case let lineString as LineString:
+			case is LineString:
 				_type = .LineString
-			case let multiLineString as MultiLineString:
+			case is MultiLineString:
 				_type = .MultiLineString
-			case let polygon as Polygon:
+			case is Polygon:
 				_type = .Polygon
-			case let multiPolygon as MultiPolygon:
+			case is MultiPolygon:
 				_type = .MultiPolygon
-            case let geometryCollection as GeometryCollection:
+            case is GeometryCollection:
                 _type = .GeometryCollection
-            case let feature as Feature:
+            case is Feature:
                 _type = .Feature
-            case let featureCollection as FeatureCollection:
+            case is FeatureCollection:
                 _type = .FeatureCollection
 			default:
 				_object = NSNull()
@@ -131,7 +132,7 @@ public final class GeoJSON {
                 case .FeatureCollection:
                     object = FeatureCollection(json: json["features"]) ?? NSNull()
 				default:
-					println("foo")
+					print("foo")
 				}
 				
 				if let _ = object as? NSNull {
@@ -169,9 +170,9 @@ public final class GeoJSON {
 	
 	:returns: Representation of the GeoJSON Object
 	*/
-	public func json() -> AnyObject {
+	public func json() -> Any {
 		
-		var JSONObject : AnyObject
+		var JSONObject : Any
 		
 		switch _type {
 		case .Feature, .FeatureCollection:

@@ -23,6 +23,7 @@
 // SOFTWARE.
 
 import Foundation
+import SwiftyJSON
 
 public final class MultiLineString : GeoJSONEncodable {
 	
@@ -33,7 +34,7 @@ public final class MultiLineString : GeoJSONEncodable {
 	public var prefix: String { return "coordinates" }
 	
 	/// Private lineStrings
-	private var _lineStrings: [LineString] = []
+	fileprivate var _lineStrings: [LineString] = []
 	
 	/**
 	Designated initializer for creating a MultiLineString from a SwiftyJSON object
@@ -73,7 +74,7 @@ public final class MultiLineString : GeoJSONEncodable {
 	
 	:returns: Representation of the LineString Object
 	*/
-	public func json() -> AnyObject {
+	public func json() -> Any {
 		return _lineStrings.map { $0.json() }
  	}
 }
